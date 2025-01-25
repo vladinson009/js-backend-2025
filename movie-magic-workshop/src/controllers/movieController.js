@@ -1,10 +1,20 @@
 import { Router } from 'express';
 import movieServices from '../services/movieServices.js';
+import errorParser from '../utils/customErrorHandler.js';
+import createSelectOptions from '../utils/createSelectOptions.js';
 
 const movieController = Router();
+
+const categories = {
+  animation: 'Animation',
+  movie: 'Movie',
+  documentary: 'Documentary',
+  'short-film': 'Short Film',
+};
 // ! create movie get request
 movieController.get('/create', (req, res) => {
-  res.render('movie/create');
+  const options = createSelectOptions(categories);
+  res.render('movie/create', { options });
 });
 // ! create movie post request
 movieController.post('/create', async (req, res) => {
@@ -12,8 +22,10 @@ movieController.post('/create', async (req, res) => {
   try {
     await movieServices.createMovie(formData);
     res.redirect('/');
-  } catch (error) {
-    res.render('movie/create', { formData, error: error.message });
+  } catch (err) {
+    const error = errorParser(err);
+    const options = createSelectOptions(categories, formData.category);
+    res.render('movie/create', { formData, error, options });
   }
 });
 // ! movie detais get request
