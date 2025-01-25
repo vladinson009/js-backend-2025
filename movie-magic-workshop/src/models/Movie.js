@@ -49,7 +49,7 @@ const movieSchema = new Schema({
     {
       _id: false,
       nameInMovie: String,
-      casts: { type: Types.ObjectId, ref: 'cast' },
+      cast: { type: Types.ObjectId, ref: 'cast' },
     },
   ],
 });
