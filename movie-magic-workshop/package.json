@@ -24,11 +24,16 @@
   },
   "contributors": [],
   "scripts": {
-    "dev": "",
+    "start": "node src/index.js",
+    "dev": "nodemon run src/index.js",
     "test": ""
   },
   "dependencies": {
+    "envdot": "^0.0.3",
     "express": "^4.21.2",
     "express-handlebars": "^8.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
