@@ -20,8 +20,8 @@ const movieSchema = new Schema({
   year: {
     type: Number,
     required: true,
-    max: currentYear,
-    min: 1950,
+    max: [currentYear, 'Year should be between 1950 and ' + currentYear],
+    min: [1950, 'Year should be between 1950 and ' + currentYear],
   },
   imageUrl: {
     type: String,
@@ -37,8 +37,8 @@ const movieSchema = new Schema({
   rating: {
     type: Number,
     required: true,
-    max: 10,
-    min: 1,
+    max: [10, 'Rating should be between 1 and 10'],
+    min: [1, 'Rating should be between 1 and 10'],
   },
   description: {
     type: String,
