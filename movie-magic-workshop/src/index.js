@@ -6,8 +6,8 @@ import mongooseConfig from './configs/mongooseConfig.js';
 import expressConfig from './configs/expressConfig.js';
 const app = express();
 
-hbsConfig(app);
 expressConfig(app);
+hbsConfig(app);
 mongooseConfig();
 
 app.listen(PORT, () => console.log(`Server is listneing on http://localhost:${PORT}...`));
