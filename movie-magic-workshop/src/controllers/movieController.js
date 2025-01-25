@@ -26,5 +26,14 @@ movieController.get('/search', async (req, res) => {
     res.render('movie/search', { movies });
   } catch (error) {}
 });
+movieController.get('/searchBy', async (req, res) => {
+  try {
+    const filter = req.query;
+    const movies = await movieServices.getByCriteria(filter).lean();
+    res.render('movie/search', { movies, filter });
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
 
 export default movieController;
