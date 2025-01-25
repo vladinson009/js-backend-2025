@@ -32,7 +32,7 @@ movieController.post('/create', async (req, res) => {
 movieController.get('/details/:movieId', async (req, res) => {
   try {
     const { movieId } = req.params;
-    const movie = await movieServices.getById(movieId).lean();
+    const movie = await movieServices.getById(movieId).populate('casts.cast').lean();
     movie.rating = '★'.repeat(Math.floor(movie.rating / 2));
     res.render('movie/details', { movie });
   } catch (error) {
