@@ -7,6 +7,7 @@
 
         <form method="POST" class="createForm">
             <h2>Add Movie</h2>
+            {{#if error}}<p>{{error}}</p>{{/if}}
             <ul class="noBullet">
                 <li>
                     <label for="title">Title:</label>
@@ -16,10 +17,9 @@
                     <label for="category">Category:</label>
                     <select id="category" class="inputFields" name="category">
                         <option value="">Select Category</option>
-                        <option value="animation">Animation</option>
-                        <option value="movie">Movie</option>
-                        <option value="documentary">Documentary</option>
-                        <option value="short-film">Short Film</option>
+                        {{#each options}}
+                        <option {{#if selected}}selected="{{selected}}" {{/if}} value="{{value}}">{{content}}</option>
+                        {{/each}}
                     </select>
                 </li>
                 <li>
