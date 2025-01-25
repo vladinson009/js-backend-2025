@@ -31,10 +31,28 @@ function getByCriteria(criteria) {
 function getById(id) {
   return Movie.findById(id);
 }
+function attachCast(movieId, formData) {
+  if (formData.cast == '' || formData.nameInMovie == '') {
+    throw new Error('All fields are required');
+  }
+  return Movie.findByIdAndUpdate(
+    movieId,
+    {
+      $push: {
+        casts: {
+          nameInMovie: formData.nameInMovie,
+          cast: formData.cast,
+        },
+      },
+    },
+    { new: true, runValidators: true }
+  );
+}
 
 export default {
   getAll,
   createMovie,
   getByCriteria,
   getById,
+  attachCast,
 };
