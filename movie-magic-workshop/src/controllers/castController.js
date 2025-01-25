@@ -19,10 +19,36 @@ castController.post('/create', async (req, res) => {
 castController.get('/attach/:movieId', async (req, res) => {
   const { movieId } = req.params;
   try {
-    const movie = await movieServices.getById(movieId).lean();
-    res.render('cast/attach', { movie });
+    const [movie, cast] = await Promise.all([
+      movieServices.getById(movieId).lean(),
+      castServices.fetchCast(movieId).lean(),
+    ]);
+
+    // const movie = await movieServices.getById(movieId).lean();
+    // const cast = await castServices.fetchCast(movieId).lean();
+    res.render('cast/attach', { movie, cast });
   } catch (error) {
+    console.log(error.message);
     res.redirect('/404');
+  }
+});
+castController.post('/attach/:movieId', async (req, res, next) => {
+  const { movieId } = req.params;
+  const formData = req.body;
+
+  try {
+    await Promise.all([
+      movieServices.attachCast(movieId, formData),
+      castServices.addMovie(formData.cast, movieId),
+    ]);
+    res.redirect(`/movies/details/${movieId}`);
+  } catch (error) {
+    const [movie, cast] = await Promise.all([
+      movieServices.getById(movieId).lean(),
+      castServices.fetchCast(movieId).lean(),
+    ]);
+
+    res.render('cast/attach', { movie, cast, error: error.message });
   }
 });
 
