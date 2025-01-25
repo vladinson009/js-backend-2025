@@ -94,9 +94,7 @@
 }
 
 .social-btn > .edit-btn,
-.del-btn,
-.vote-up,
-.thanks-for-vote {
+.del-btn {
   color: black;
   font-weight: bold;
   border: none;
@@ -122,20 +120,8 @@
   background-color: #c6ac8f;
 }
 
-.vote-up {
-  background-color: #c6ac8f;
-}
-
-.thanks-for-vote {
-  width: 185px;
-  font-weight: bold;
-  background-color: #eae0d5;
-}
-
 .edit-btn:hover,
-.del-btn:hover,
-.vote-up:hover,
-.vote-down:hover {
+.del-btn:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -196,38 +182,38 @@ span {
   background-position: center center;
 }
 
-#votes {
-  margin-top: 3em;
-  left: 50%;
+.main-cast-card {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.vote-info {
-  color: #fff;
-  height: 200px auto;
-  margin: 50px auto;
-  display: flex;
-  max-width: 950px;
-  background: #e4a1a9;
-  background: -webkit-linear-gradient(to right, #03434c, rgb(179, 91, 98));
-  background: -webkit-gradient(linear, left top, right top, from(#03434c), to(rgb(#08272c)));
-  background: -webkit-linear-gradient(left, #03434c, #08272c);
-  background: -o-linear-gradient(left, #03434c, #08272c);
-  background: linear-gradient(to right, #03434c, #08272c);
-  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+.cast-card {
+  width: 300px;
+  background-color: #6d6875;
+  border-radius: 10%;
+  color: white;
 }
 
-.card_vote {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  margin-top: 6px;
-  margin-left: 2em;
-  margin-bottom: 25px;
+.cast-info {
+  margin: 20px;
+  font-weight: bold;
+}
+
+.cast-info h1 {
+  text-align: center;
+}
+
+.cast-info h3 {
+  margin-top: 5px;
+}
+
+.card-img img {
+  display: inline;
+  border-radius: 10%;
+  margin-left: 26%;
+  margin-top: 10px;
+  width: 150px;
+  height: 150px;
 }
 
 .PV {
@@ -247,7 +233,7 @@ span {
 
 .PV,
 .NV {
-  color: #fff;
+  color: fff;
   max-width: 300px;
   padding: 10px;
   font-weight: bold;
