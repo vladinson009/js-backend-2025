@@ -1,8 +1,8 @@
-import hbs from 'express-handlebars';
+import handlebars from 'express-handlebars';
 
 // ! handlebars view engine & extension name Setup
-export default async function (app) {
+export default function (app) {
   app.set('view engine', 'hbs');
   app.set('views', 'src/views');
-  app.engine('hbs', hbs.engine({ extname: false }));
+  app.engine('hbs', handlebars.engine({ extname: 'hbs' }));
 }
