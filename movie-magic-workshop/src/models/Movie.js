@@ -13,7 +13,7 @@ const movieSchema = new Schema({
     type: String,
     required: true,
   },
-  direcotr: {
+  director: {
     type: String,
     required: true,
   },
@@ -21,7 +21,7 @@ const movieSchema = new Schema({
     type: Number,
     required: true,
   },
-  imageURL: {
+  imageUrl: {
     type: String,
     required: true,
   },
