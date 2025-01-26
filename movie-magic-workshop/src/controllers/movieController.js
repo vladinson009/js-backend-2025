@@ -11,12 +11,12 @@ const categories = {
   documentary: 'Documentary',
   'short-film': 'Short Film',
 };
-// ! create movie get request
+// ! CREATE movie get request
 movieController.get('/create', (req, res) => {
   const options = createSelectOptions(categories);
   res.render('movie/create', { options });
 });
-// ! create movie post request
+// ! CREATE movie post request
 movieController.post('/create', async (req, res) => {
   const formData = req.body;
   try {
@@ -28,7 +28,7 @@ movieController.post('/create', async (req, res) => {
     res.render('movie/create', { formData, error, options });
   }
 });
-// ! movie detais get request
+// ! movie DETAILS get request
 movieController.get('/details/:movieId', async (req, res) => {
   try {
     const { movieId } = req.params;
@@ -39,14 +39,27 @@ movieController.get('/details/:movieId', async (req, res) => {
     res.redirect('/404');
   }
 });
-// ! movie search get request
+// ! movie EDIT get request
+movieController.get('/edit/:movieId', async (req, res) => {
+  const { movieId } = req.params;
+  try {
+    const movie = await movieServices.getById(movieId).lean();
+    console.log(movie);
+
+    const options = createSelectOptions(categories, movie.category);
+    res.render('movie/edit', { movie, options });
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
+// ! movie SEARCH get request
 movieController.get('/search', async (req, res) => {
   try {
     const movies = await movieServices.getAll().lean();
     res.render('movie/search', { movies });
   } catch (error) {}
 });
-// ! movie search with criteria get request
+// ! movie SEARCH with criteria get request
 movieController.get('/searchBy', async (req, res) => {
   try {
     const filter = req.query;
