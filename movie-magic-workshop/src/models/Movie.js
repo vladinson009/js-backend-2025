@@ -52,6 +52,11 @@ const movieSchema = new Schema({
       cast: { type: Types.ObjectId, ref: 'cast' },
     },
   ],
+  creatorId: {
+    type: Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
 });
 
 export default model('movie', movieSchema);
