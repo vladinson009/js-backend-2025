@@ -1,11 +1,22 @@
 import Movie from '../models/Movie.js';
-function createMovie(formData) {
+function createMovie(formData, creatorId) {
   for (const field in formData) {
     if (formData[field] == '') {
       throw new Error('All fields are required!');
     }
   }
-  return Movie.create(formData);
+  return Movie.create({ ...formData, creatorId });
+}
+function editMovie(formData, movieId) {
+  for (const field in formData) {
+    if (formData[field] == '') {
+      throw new Error('All fields are required!');
+    }
+  }
+  return Movie.findByIdAndUpdate(movieId, formData, {
+    runValidators: true,
+    new: true,
+  });
 }
 function getAll() {
   return Movie.find();
@@ -52,6 +63,7 @@ function attachCast(movieId, formData) {
 export default {
   getAll,
   createMovie,
+  editMovie,
   getByCriteria,
   getById,
   attachCast,
