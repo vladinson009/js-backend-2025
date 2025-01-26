@@ -1,12 +1,12 @@
 const titles = {
-  '/': 'Catalog Page',
+  '/': 'Catalog',
   '/404': '404 Page',
-  '/about': 'About Page',
+  '/about': 'About',
   '/movies/create': 'Create Movie',
-  '/movies/search': 'Search Page',
-  '/cast/create': 'Create Cast Page',
-  '/users/login': 'Login Page',
-  '/users/register': 'Register Page',
+  '/movies/search': 'Search',
+  '/cast/create': 'Create Cast',
+  '/users/login': 'Login',
+  '/users/register': 'Register',
 };
 
 export default function pageTitle(req, res, next) {
@@ -18,7 +18,7 @@ export default function pageTitle(req, res, next) {
   } else if (req.url.includes('/movies/edit')) {
     res.locals.pageTitle = 'Edit Movie';
   } else if (req.url.includes('/cast/attach/')) {
-    res.locals.pageTitle = 'Attach Cast Page';
+    res.locals.pageTitle = 'Attach Cast';
   }
   next();
 }
