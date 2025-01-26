@@ -22,13 +22,14 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/movies/search">Search</a></li>
-                <!--Users-->
+                {{#if user}} <!--Users-->
                 <li><a href="/movies/create">Create Movie</a></li>
                 <li><a href="/cast/create">Create Cast</a></li>
                 <li><a href="/users/logout">Logout</a></li>
-                <!--Guest-->
+                {{else}} <!--Guest-->
                 <li><a href="/users/login">Login</a></li>
                 <li><a href="/users/register">Register</a></li>
+                {{/if }}
 
             </ul>
 
