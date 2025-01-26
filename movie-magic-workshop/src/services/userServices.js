@@ -1,5 +1,6 @@
 import User from '../models/User.js';
-
+import bcrypt from 'bcrypt';
+// * REGISTER new user
 async function register(inputData) {
   for (const key in inputData) {
     if (!inputData[key]) {
@@ -22,5 +23,26 @@ async function register(inputData) {
     throw error;
   }
 }
+// * LOGIN user
+async function login(inputData) {
+  for (const key in inputData) {
+    if (!inputData[key]) {
+      throw new Error('All fields are required!');
+    }
+  }
+  try {
+    const isUser = await User.findOne({ email: inputData.email });
+    if (!isUser) {
+      throw new Error('Email or password does not match!');
+    }
+    const hashedPassword = await bcrypt.compare(inputData.password, isUser.password);
+    if (!hashedPassword) {
+      throw new Error('All fields are required!');
+    }
+    return isUser;
+  } catch (error) {
+    throw error;
+  }
+}
 
-export default { register };
+export default { register, login };
