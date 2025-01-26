@@ -4,7 +4,7 @@ import staticController from './controllers/staticController.js';
 import movieController from './controllers/movieController.js';
 import castController from './controllers/castController.js';
 const routes = Router();
-
+// TODO: Create Routes protection
 routes.use(homeController); // * Home page
 routes.use(staticController); // * About page
 routes.use('/movies', movieController); // * Movie pages
