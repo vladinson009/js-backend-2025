@@ -43,7 +43,7 @@ const movieSchema = new Schema({
   description: {
     type: String,
     required: true,
-    maxLength: 150,
+    maxLength: [200, 'Description length can not exceed 200 symbols!'],
   },
   casts: [
     {
