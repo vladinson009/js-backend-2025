@@ -19,8 +19,9 @@ movieController.get('/create', (req, res) => {
 // ! CREATE movie post request
 movieController.post('/create', async (req, res) => {
   const formData = req.body;
+  const creatorId = res.locals.user ? res.locals.user._id : null;
   try {
-    await movieServices.createMovie(formData);
+    await movieServices.createMovie(formData, creatorId);
     res.redirect('/');
   } catch (err) {
     const error = errorParser(err);
@@ -32,9 +33,11 @@ movieController.post('/create', async (req, res) => {
 movieController.get('/details/:movieId', async (req, res) => {
   try {
     const { movieId } = req.params;
+    const currentUserId = res.locals.user ? res.locals.user._id : null;
     const movie = await movieServices.getById(movieId).populate('casts.cast').lean();
     movie.rating = '★'.repeat(Math.floor(movie.rating / 2));
-    res.render('movie/details', { movie });
+    const isCreator = movie.creatorId?.toString() == currentUserId;
+    res.render('movie/details', { movie, isCreator });
   } catch (error) {
     res.redirect('/404');
   }
@@ -44,12 +47,30 @@ movieController.get('/edit/:movieId', async (req, res) => {
   const { movieId } = req.params;
   try {
     const movie = await movieServices.getById(movieId).lean();
-    console.log(movie);
-
     const options = createSelectOptions(categories, movie.category);
+
     res.render('movie/edit', { movie, options });
   } catch (error) {
     res.redirect('/404');
+  }
+});
+// ! movie EDIT post request
+movieController.post('/edit/:movieId', async (req, res) => {
+  const formData = req.body;
+  const { movieId } = req.params;
+  try {
+    await movieServices.editMovie(formData, movieId);
+    res.redirect(`/movies/details/${movieId}`);
+  } catch (err) {
+    // * nested try-catch statement to keep the state
+    try {
+      const movie = await movieServices.getById(movieId).lean();
+      const options = createSelectOptions(categories, movie.category);
+      const error = errorParser(err);
+      res.render('movie/edit', { movie, options, error });
+    } catch (fetchError) {
+      res.redirect('/404');
+    }
   }
 });
 // ! movie SEARCH get request
