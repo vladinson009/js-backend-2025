@@ -9,6 +9,9 @@
 
     <form method="POST" class="editForm">
       <h2>Edit Post</h2>
+      {{#if error}}
+      <p style="color: red;">{{error}}</p>
+      {{/if}}
       <ul class="noBullet">
         <li>
           <label for="title">Title:</label>
