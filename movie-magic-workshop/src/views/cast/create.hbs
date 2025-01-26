@@ -6,6 +6,9 @@
 
         <form method="POST" class="createCastForm">
             <h2>Add Cast</h2>
+            {{#if error}}
+            <p style="color: red;">{{error}}</p>
+            {{/if}}
             <ul class="noBullet">
                 <li>
                     <label for="name">Name:</label>
