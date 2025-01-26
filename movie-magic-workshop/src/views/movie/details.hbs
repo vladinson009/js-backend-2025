@@ -17,12 +17,16 @@
 
                 <p class="disc">Description: {{movie.description}}</p>
                 <p class="card-category">Category: {{movie.category}}</p>
+                {{#if isCreator}}
                 <a href="/cast/attach/{{movie._id}}" class="details">Attach Cast</a>
+                {{/if}}
             </div>
+            {{#if isCreator}}
             <div class="details-btn">
                 <a href="/movies/edit/{{movie._id}}"> <button id="edit-button">Edit</button></a>
                 <a href="/movies/delete/{{movie._id}}"> <button id="delete-button">Delete</button></a>
             </div>
+            {{/if}}
         </div>
         <div class="card_right">
             <img src="{{movie.imageUrl}}" alt="{{movie.title}}">
