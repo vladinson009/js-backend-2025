@@ -1,5 +1,7 @@
 # TODO LIST:
 
-## implement movie details page
+## GENERATE JWT ON CREAT NEW USER
 
-## dynamic select options on create move
+## Only the creator of the movie can see Edit & Delete buttons
+
+## When access edit page, it shows the current movie information
