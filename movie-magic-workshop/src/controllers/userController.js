@@ -9,6 +9,18 @@ const userController = Router();
 userController.get('/login', (req, res) => {
   res.render('user/login');
 });
+userController.post('/login', async (req, res) => {
+  const userInput = req.body;
+  try {
+    const user = await userServices.login(userInput);
+    const token = createToken(user);
+    res.cookie('jwt', token);
+    res.redirect('/');
+  } catch (err) {
+    const error = errorParser(err);
+    res.render('user/login', { email: userInput.email, error });
+  }
+});
 
 // Register Form
 userController.get('/register', (req, res) => {
@@ -26,6 +38,7 @@ userController.post('/register', async (req, res) => {
     res.render('user/register', { email: userInput.email, error });
   }
 });
+// Logout
 userController.get('/logout', (req, res) => {
   res.clearCookie('jwt');
   res.redirect('/');
