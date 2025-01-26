@@ -1,9 +1,7 @@
 <section id="details-page">
-
     <div class="main_card">
         <div class="card_left">
             <div class="card_datails">
-
                 <h1>{{movie.title}}</h1>
                 <div class="card-movie">
                     <div class="first-info">
@@ -20,6 +18,10 @@
                 <p class="disc">Description: {{movie.description}}</p>
                 <p class="card-category">Category: {{movie.category}}</p>
                 <a href="/cast/attach/{{movie._id}}" class="details">Attach Cast</a>
+            </div>
+            <div class="details-btn">
+                <button id="edit-button">Edit</button>
+                <button id="delete-button">Delete</button>
             </div>
         </div>
         <div class="card_right">
@@ -39,6 +41,10 @@
                 <h3>Born: {{cast.born}}</h3>
                 <h3>Name in Movie: {{nameInMovie}}</h3>
             </div>
+        </div>
+        {{else}}
+        <div class="no-cast">
+            <p>There are no casts added yet...</p>
         </div>
         {{/each}}
     </div>
