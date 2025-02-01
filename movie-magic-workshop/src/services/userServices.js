@@ -37,7 +37,7 @@ async function login(inputData) {
     }
     const hashedPassword = await bcrypt.compare(inputData.password, isUser.password);
     if (!hashedPassword) {
-      throw new Error('All fields are required!');
+      throw new Error('Email or password does not match!');
     }
     return isUser;
   } catch (error) {
