@@ -2,14 +2,15 @@ import { Router } from 'express';
 import userServices from '../services/userServices.js';
 import errorParser from '../utils/customErrorHandler.js';
 import createToken from '../utils/createJwt.js';
+import { guestUsersOnly, loggedUsersOnly } from '../middlewares/routeGuards.js';
 
 const userController = Router();
 
 // Login Form
-userController.get('/login', (req, res) => {
+userController.get('/login', guestUsersOnly, (req, res) => {
   res.render('user/login');
 });
-userController.post('/login', async (req, res) => {
+userController.post('/login', guestUsersOnly, async (req, res) => {
   const userInput = req.body;
   try {
     const user = await userServices.login(userInput);
@@ -23,10 +24,10 @@ userController.post('/login', async (req, res) => {
 });
 
 // Register Form
-userController.get('/register', (req, res) => {
+userController.get('/register', guestUsersOnly, (req, res) => {
   res.render('user/register');
 });
-userController.post('/register', async (req, res) => {
+userController.post('/register', guestUsersOnly, async (req, res) => {
   const userInput = req.body;
   try {
     const user = await userServices.register(userInput);
@@ -39,7 +40,7 @@ userController.post('/register', async (req, res) => {
   }
 });
 // Logout
-userController.get('/logout', (req, res) => {
+userController.get('/logout', loggedUsersOnly, (req, res) => {
   res.clearCookie('jwt');
   res.redirect('/');
 });

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import movieServices from '../services/movieServices.js';
 import errorParser from '../utils/customErrorHandler.js';
 import createSelectOptions from '../utils/createSelectOptions.js';
+import { authorizedUsersOnly, loggedUsersOnly } from '../middlewares/routeGuards.js';
 
 const movieController = Router();
 
@@ -13,12 +14,12 @@ const categories = {
   'short-film': 'Short Film',
 };
 // ! CREATE movie get request
-movieController.get('/create', (req, res) => {
+movieController.get('/create', loggedUsersOnly, (req, res) => {
   const options = createSelectOptions(categories);
   res.render('movie/create', { options });
 });
 // ! CREATE movie post request
-movieController.post('/create', async (req, res) => {
+movieController.post('/create', loggedUsersOnly, async (req, res) => {
   const formData = req.body;
   const creatorId = res.locals.user ? res.locals.user._id : null;
   try {
@@ -44,10 +45,14 @@ movieController.get('/details/:movieId', async (req, res) => {
   }
 });
 // ! movie EDIT get request
-movieController.get('/edit/:movieId', async (req, res) => {
+movieController.get('/edit/:movieId', authorizedUsersOnly, async (req, res) => {
   const { movieId } = req.params;
   try {
     const movie = await movieServices.getById(movieId).lean();
+    if (!movie.creatorId.equals(req.userId)) {
+      res.redirect('/404');
+    }
+
     const options = createSelectOptions(categories, movie.category);
 
     res.render('movie/edit', { movie, options });
@@ -56,10 +61,14 @@ movieController.get('/edit/:movieId', async (req, res) => {
   }
 });
 // ! movie EDIT post request
-movieController.post('/edit/:movieId', async (req, res) => {
+movieController.post('/edit/:movieId', authorizedUsersOnly, async (req, res) => {
   const formData = req.body;
   const { movieId } = req.params;
   try {
+    const movie = await movieServices.getById(movieId).lean();
+    if (!movie.creatorId.equals(req.userId)) {
+      res.redirect('/404');
+    }
     await movieServices.editMovie(formData, movieId);
     res.redirect(`/movies/details/${movieId}`);
   } catch (err) {
@@ -75,9 +84,13 @@ movieController.post('/edit/:movieId', async (req, res) => {
   }
 });
 // ! movie DELETE get request
-movieController.get('/delete/:movieId', async (req, res) => {
+movieController.get('/delete/:movieId', authorizedUsersOnly, async (req, res) => {
   const movieId = req.params.movieId;
   try {
+    const movie = await movieServices.getById(movieId).lean();
+    if (!movie.creatorId.equals(req.userId)) {
+      res.redirect('/404');
+    }
     await movieServices.deleteMovie(movieId);
     res.redirect('/');
   } catch (error) {
