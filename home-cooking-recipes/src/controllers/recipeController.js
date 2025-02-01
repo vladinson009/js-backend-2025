@@ -18,7 +18,6 @@ recipeController.get('/create', loggedOnly, (req, res) => {
 recipeController.post('/create', loggedOnly, async (req, res) => {
   const userInput = req.body;
   const owner = res.locals.user?._id;
-  console.log(owner);
 
   try {
     await recipeService.createRecipe(userInput, owner);
@@ -35,7 +34,6 @@ recipeController.get('/details/:recipeId', async (req, res) => {
     const ownerId = recipe.owner.toString();
     const isOwner = currentUser == ownerId;
     const isVoted = recipe.recommendList.some((el) => el.toString() == currentUser);
-    console.log(recipe.recommendList);
 
     res.render('recipe/details', { recipe, isOwner, isVoted });
   } catch (error) {
@@ -85,8 +83,6 @@ recipeController.get('/recommend/:recipeId', loggedOnly, async (req, res) => {
     await recipeService.recommendRecipe(recipeId, userId);
     res.redirect(`/recipes/details/${recipeId}`);
   } catch (error) {
-    console.log(error.message);
-
     res.redirect('/404');
   }
 });
