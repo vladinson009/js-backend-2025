@@ -18,6 +18,9 @@ function editMovie(formData, movieId) {
     new: true,
   });
 }
+function deleteMovie(movieId) {
+  return Movie.findByIdAndDelete(movieId);
+}
 function getAll() {
   return Movie.find();
 }
@@ -67,4 +70,5 @@ export default {
   getByCriteria,
   getById,
   attachCast,
+  deleteMovie,
 };

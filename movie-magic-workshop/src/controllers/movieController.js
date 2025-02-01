@@ -6,6 +6,7 @@ import createSelectOptions from '../utils/createSelectOptions.js';
 const movieController = Router();
 
 const categories = {
+  'tv-show': 'TV Show',
   animation: 'Animation',
   movie: 'Movie',
   documentary: 'Documentary',
@@ -71,6 +72,16 @@ movieController.post('/edit/:movieId', async (req, res) => {
     } catch (fetchError) {
       res.redirect('/404');
     }
+  }
+});
+// ! movie DELETE get request
+movieController.get('/delete/:movieId', async (req, res) => {
+  const movieId = req.params.movieId;
+  try {
+    await movieServices.deleteMovie(movieId);
+    res.redirect('/');
+  } catch (error) {
+    res.redirect('/404');
   }
 });
 // ! movie SEARCH get request
