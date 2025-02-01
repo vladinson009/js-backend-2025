@@ -18,3 +18,16 @@
 ### 3: configurate mongoose
 
 - add connection string to mongoose with connect method (async)
+
+### 4: HBS templates:
+
+- fixed all of the provided templates by creating main layer.
+- added error modal if error
+- dynamic page title
+- dynamic navigation
+
+## TODO: Check recommend functionality
+
+## TODO: Search By Criteria
+
+- Done!
