@@ -2,7 +2,10 @@
 
 ### 1: configurate express
 
-- add static files
+- add express static files
+- add express urlencoded with extended false
+- add cookie parser
+- add pageTitle middleware
 - add router
 
 ### 2: configurate express-handlebars
