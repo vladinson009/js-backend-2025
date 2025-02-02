@@ -8,5 +8,7 @@ homeController.get('/', async (req, res) => {
 
   res.render('home', { devices: lastThreeDevices });
 });
-
+homeController.get('/about', (req, res) => {
+  res.render('about');
+});
 export default homeController;
