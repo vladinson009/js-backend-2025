@@ -33,13 +33,13 @@ function deleteDeviceById(deviceId) {
 // ! PREFER DEVICE
 function preferDevice(deviceId, userId) {
   return Device.findByIdAndUpdate(deviceId, {
-    $addToSet: { prefferedList: userId },
+    $addToSet: { preferredList: userId },
   });
 }
 // ! GET PREFERED DEVICE BY USERID
 function getPreferedDevicesByUserId(userId) {
   return Device.find({
-    prefferedList: {
+    preferredList: {
       $in: [userId],
     },
   });

@@ -33,10 +33,10 @@ deviceController.get('/details/:deviceId', async (req, res) => {
     const device = await deviceService.getDeviceById(deviceId).lean();
     const owner = device.owner.toString();
     const currentUserId = res.locals?.user?._id;
-    const isPreffered = device.prefferedList.some((el) => el.toString() == currentUserId);
+    const isPreferred = device.preferredList.some((el) => el.toString() == currentUserId);
 
     const isOwner = owner == currentUserId;
-    res.render('device/details', { device, isOwner, isPreffered });
+    res.render('device/details', { device, isOwner, isPreferred });
   } catch (error) {
     res.redirect('/404');
   }

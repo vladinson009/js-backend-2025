@@ -30,7 +30,7 @@
             <button class="btn edit"><a href="/devices/edit/{{device._id}}">Edit</a></button>
             <button class="btn delete"><a href="/devices/delete/{{device._id}}">Delete</a></button>
             {{else}}
-            {{#if isPreffered}}
+            {{#if isPrefered}}
             <p class="prefer-message">You've already preferred this device</p>
             {{else}}
             <button class="btn prefer"><a href="/devices/prefer/{{device._id}}">Prefer</a></button>

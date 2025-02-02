@@ -49,7 +49,7 @@ const deviceSchema = new Schema({
     type: String,
     required: true,
   },
-  prefferedList: [
+  preferredList: [
     {
       type: Schema.Types.ObjectId,
       ref: 'user',
