@@ -12,6 +12,17 @@
 </head>
 
 <body>
+    <!-- In case of error, you should display div with class "errorContainer" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+    <!-- 
+    -->
+    {{#if error}}
+    <div>
+        <div class="errorContainer">
+            <p>{{error}}</p>
+        </div>
+    </div>
+    {{/if}}
 
     <header class="header">
 
@@ -19,17 +30,21 @@
             <nav class="navbar">
                 <a href="/">Home</a>
                 <a href="/books/catalog">Catalog</a>
+                {{#if user}}
                 <!--Only for logged user-->
                 <a href="/users/profile">Profile</a>
                 <a href="/books/create-review">Create Review</a>
                 <a href="/users/logout">Logout</a>
+                {{else}}
                 <!--Only for guest-->
                 <a href="/users/login">Login</a>
                 <a href="/users/register">Register</a>
+                {{/if}}
             </nav>
         </div>
 
     </header>
+
     {{{body}}}
 </body>
 
