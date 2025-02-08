@@ -9,7 +9,7 @@ export default function (app) {
       extname: 'hbs',
       helpers: {
         setTitle(title) {
-          this.pageTitle = title;
+          this.pageTitle = title || 'Title';
         },
       },
     })
