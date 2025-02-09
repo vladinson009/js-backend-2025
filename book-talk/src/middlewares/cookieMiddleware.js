@@ -8,7 +8,7 @@ export default function (req, res, next) {
       res.locals.user = user;
     } catch (error) {
       res.clearCookie(AUTH_COOKIE_NAME);
-      res.redirect('/');
+      return res.redirect('/');
     }
   }
   next();
