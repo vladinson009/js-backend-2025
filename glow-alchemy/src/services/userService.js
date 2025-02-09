@@ -6,7 +6,8 @@ async function register(userInput) {
     throw new Error('Passwords does not match!');
   }
   try {
-    const isUser = User.findOne({ email: userInput.email });
+    const isUser = await User.findOne({ email: userInput.email });
+
     if (isUser != null) {
       throw new Error(`Email ${isUser.email} already exist in our database!`);
     }
@@ -22,7 +23,7 @@ async function register(userInput) {
 }
 async function login(userInput) {
   try {
-    const isUser = User.findOne({ email: userInput.email });
+    const isUser = await User.findOne({ email: userInput.email });
     if (isUser == null) {
       throw new Error(`Invalid email or password!`);
     }
