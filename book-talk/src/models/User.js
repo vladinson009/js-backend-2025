@@ -5,15 +5,18 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
+      minLength: [4, 'Username should be at least 4 characters!'],
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      minLength: [10, 'Email should be at least 10 characters!'],
     },
     password: {
       type: String,
       required: true,
+      minLength: [3, 'Password should be at least 3 characters!'],
     },
   },
   { collation: { locale: 'en', strength: 2 } }
