@@ -8,6 +8,7 @@ const router = Router();
 router.use(homeController);
 router.use('/users', userController);
 router.use('/books', bookController);
-router.use('*', (req, res) => res.render('404'));
+router.use('/404', (req, res) => res.render('404'));
+router.use('*', (req, res) => res.redirect('/404'));
 
 export default router;
