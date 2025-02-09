@@ -4,17 +4,17 @@
     <form method="POST">
         <h3>Create Book Review</h3>
         <label>Title</label>
-        <input type="text" name="title" class="box" id="title">
+        <input type="text" name="title" class="box" id="title" value="{{userInput.title}}">
         <label>Author</label>
-        <input type="text" name="author" class="box" id="author">
+        <input type="text" name="author" class="box" id="author" value="{{userInput.author}}">
         <label>Genre</label>
-        <input type="text" name="genre" class="box" id="genre">
+        <input type="text" name="genre" class="box" id="genre" value="{{userInput.genre}}">
         <label>Stars</label>
-        <input type="number" name="stars" class="box" id="stars">
+        <input type="number" name="stars" class="box" id="stars" value="{{userInput.stars}}">
         <label>Image</label>
-        <input type="text" name="image" class="box" id="image">
+        <input type="text" name="image" class="box" id="image" value="{{userInput.image}}">
         <label>Review</label>
-        <textarea class="box" name="review"></textarea>
+        <textarea class="box" name="review">{{userInput.review}}</textarea>
         <input type="submit" value="Create" class="btn">
     </form>
 </section>
