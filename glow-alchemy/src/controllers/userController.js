@@ -2,13 +2,14 @@ import { Router } from 'express';
 import userService from '../services/userService.js';
 import { AUTH_COOKIE_NAME } from '../constants.js';
 import errorParser from '../utils/errorParser.js';
+import { guestOnly, loggedOnly } from '../middlewares/routesGuards.js';
 
 const userController = Router();
 
-userController.get('/login', async (req, res) => {
+userController.get('/login', guestOnly, async (req, res) => {
   res.render('user/login');
 });
-userController.post('/login', async (req, res) => {
+userController.post('/login', guestOnly, async (req, res) => {
   const userInput = req.body;
   try {
     const token = await userService.login(userInput);
@@ -22,10 +23,10 @@ userController.post('/login', async (req, res) => {
     res.render('user/login', { error, userInput });
   }
 });
-userController.get('/register', (req, res) => {
+userController.get('/register', guestOnly, (req, res) => {
   res.render('user/register');
 });
-userController.post('/register', async (req, res) => {
+userController.post('/register', guestOnly, async (req, res) => {
   const userInput = req.body;
   try {
     const token = await userService.register(userInput);
@@ -35,5 +36,9 @@ userController.post('/register', async (req, res) => {
     const error = errorParser(err);
     res.render('user/register', { error, userInput });
   }
+});
+userController.get('/logout', loggedOnly, (req, res) => {
+  res.clearCookie(AUTH_COOKIE_NAME);
+  res.redirect('/');
 });
 export default userController;
