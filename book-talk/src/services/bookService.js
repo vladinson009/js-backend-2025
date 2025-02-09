@@ -14,5 +14,27 @@ function getAll() {
 function getById(bookId) {
   return Book.findById(bookId);
 }
+function getWishlist(userId) {
+  return Book.find({ wishingList: { $in: [userId] } });
+}
+function editById(bookId, userInput) {
+  return Book.findByIdAndUpdate(bookId, { ...userInput }, { runValidators: true });
+}
+function deleteById(bookId) {
+  return Book.findByIdAndDelete(bookId);
+}
+function addToWishlist(bookId, userId) {
+  return Book.findByIdAndUpdate(bookId, {
+    $addToSet: { wishingList: userId },
+  });
+}
 
-export default { create, getAll, getById };
+export default {
+  create,
+  getAll,
+  getById,
+  editById,
+  deleteById,
+  addToWishlist,
+  getWishlist,
+};
