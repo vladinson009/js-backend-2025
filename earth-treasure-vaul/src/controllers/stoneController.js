@@ -33,9 +33,35 @@ stoneController.get('/details/:stoneId', async (req, res) => {
   const { stoneId } = req.params;
   try {
     const stone = await stoneService.getById(stoneId).lean();
-    res.render('stone/details', { stone });
+    const userId = res.locals.user?._id;
+    const isOwner = stone.owner.equals(userId);
+    const isLiked = stone.likedList.some((el) => el.equals(userId));
+
+    res.render('stone/details', { stone, isOwner, isLiked });
   } catch (error) {
     res.redirect('/404');
   }
+});
+stoneController.get('/edit/:stoneId', async (req, res) => {
+  const { stoneId } = req.params;
+  try {
+    const stone = await stoneService.getById(stoneId).lean();
+    res.render('stone/edit', { stone });
+  } catch (error) {
+    res.redirect('/404');
+  }
+});
+stoneController.post('/edit/:stoneId', async (req, res) => {
+  const { stoneId } = req.params;
+  const userInput = req.body;
+  try {
+    await stoneService.updateById(stoneId, userInput);
+    res.redirect(`/stones/details/${stoneId}`);
+  } catch (err) {
+    const error = errorParser(err);
+    res.render('stone/edit', { stone: userInput, error });
+  }
+  //TODO: redirect details page
+  //TODO: in case of error persist userInput in fields
 });
 export default stoneController;

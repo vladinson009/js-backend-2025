@@ -12,5 +12,8 @@ function getLastThree() {
 function getById(stoneId) {
   return Stone.findById(stoneId);
 }
+function updateById(stoneId, userInput) {
+  return Stone.findByIdAndUpdate(stoneId, userInput, { runValidators: true });
+}
 
-export default { create, getAll, getLastThree, getById };
+export default { create, getAll, getLastThree, getById, updateById };
