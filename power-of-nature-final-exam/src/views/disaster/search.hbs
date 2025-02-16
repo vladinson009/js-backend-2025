@@ -1,0 +1,52 @@
+{{setTitle 'Search'}}
+
+
+<!-- In case of error, you should display div with class "errorContainer" -->
+<!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+<!-- <div>
+                <div class="errorContainer">
+                    <p>Error</p>
+                </div>
+            </div> -->
+
+<section class="event-search">
+    <h1 id="title">Search</h1>
+
+    <form action="/disasters/search/criteria" class="search-form" method="GET">
+        <input type="text" class="search-event" name="name" placeholder="Search by Name..." value="{{includes.name}}">
+        <select id="type" name="type">
+            <option value=""></option>
+            {{#each options}}
+            <option {{#if selected}}selected="{{selected}}" {{/if}} value="{{value}}">{{content}}</option>
+            {{/each}}
+        </select>
+        <button type="submit" class="btn-search">Search</button>
+    </form>
+    <div class="search-result">
+        <div class="search-list">
+            {{#each disasters}}
+            <div class="event">
+                <div class="img">
+                    <img src="{{image}}">
+                </div>
+                <div class="event-info">
+                    <h1>{{name}}</h1>
+                    <p><span>Location: </span>{{location}}</p>
+                    <p><span>Type: </span>{{type}}</p>
+                </div>
+                <a href="/disasters/details/{{_id}}" class="btn-details">Details</a>
+            </div>
+
+            {{else}}
+            <!-- <div class="no-match">
+                    <p>No match was found!</p>
+                </div> -->
+            <div class="no-match">
+                <p>No match was found!</p>
+            </div>
+            {{/each}}
+        </div>
+
+    </div>
+</section>

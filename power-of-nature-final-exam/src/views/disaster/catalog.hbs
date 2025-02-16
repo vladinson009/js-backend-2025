@@ -1,0 +1,39 @@
+{{setTitle 'Catalog Page'}}
+
+
+<!-- In case of error, you should display div with class "errorContainer" -->
+<!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+<!-- <div>
+            <div class="errorContainer">
+                <p>Error</p>
+            </div>
+        </div> -->
+
+<section class="catalog">
+    <h1 id="title"><span>Power of Nature</span></h1>
+    <div class="item-list">
+        {{#each disasters}}
+        <div class="event">
+            <div class="img">
+                <img src="{{image}}">
+            </div>
+            <div class="event-info">
+                <h1>{{name}}</h1>
+                <p><span>Location: </span>{{location}}</p>
+                <p><span>Type: </span>{{type}}</p>
+            </div>
+
+            <a href="/disasters/details/{{_id}}" class="btn-details">Details</a>
+        </div>
+
+        {{else}}
+        <!-- <div class="no-event">
+                <p>There are no events found yet!</p>
+            </div> -->
+        <div class="no-event">
+            <p>There are no events found yet!</p>
+        </div>
+        {{/each}}
+    </div>
+</section>
