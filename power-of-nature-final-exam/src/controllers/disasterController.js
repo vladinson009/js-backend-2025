@@ -39,11 +39,9 @@ disasterController.get('/details/:disasterId', async (req, res) => {
     const isInterested = disaster.interestedList.some(
       (el) => el.toString() == userId
     );
-    console.log(isInterested);
 
     res.render('disaster/details', { disaster, isOwner, isInterested });
   } catch (error) {
-    console.log(error.message);
     res.redirect('/404');
   }
 });
@@ -117,6 +115,14 @@ disasterController.get('/interested/:disasterId', loggedOnly, async (req, res) =
 
   try {
     if (userId) {
+      const { owner } = await disasterService
+        .getById(disasterId)
+        .select('owner')
+        .lean();
+      if (userId == owner.toString()) {
+        return res.redirect('/404');
+      }
+
       await disasterService.interestedIn(disasterId, userId);
       res.redirect(`/disasters/details/${disasterId}`);
     }
