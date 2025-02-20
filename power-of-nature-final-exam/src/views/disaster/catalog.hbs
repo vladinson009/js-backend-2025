@@ -12,6 +12,7 @@
 
 <section class="catalog">
     <h1 id="title"><span>Power of Nature</span></h1>
+    {{#if disasters}}
     <div class="item-list">
         {{#each disasters}}
         <div class="event">
@@ -26,14 +27,11 @@
 
             <a href="/disasters/details/{{_id}}" class="btn-details">Details</a>
         </div>
-
-        {{else}}
-        <!-- <div class="no-event">
-                <p>There are no events found yet!</p>
-            </div> -->
-        <div class="no-event">
-            <p>There are no events found yet!</p>
-        </div>
         {{/each}}
     </div>
+    {{else}}
+    <div class="no-event">
+        <p>There are no events found yet!</p>
+    </div>
+    {{/if}}
 </section>
